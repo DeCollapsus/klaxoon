@@ -1,11 +1,11 @@
 import './App.scss';
 import { connect } from 'react-redux';
 
-import { func, object } from 'prop-types';
+import { bool, func, object } from 'prop-types';
 
 import CreateElementForm from './link/CreateElement.form';
 
-const App = ({ getLink, link }) => {
+const App = ({ getLink, link, loading }) => {
 
   return (
     <div className="App">
@@ -14,6 +14,7 @@ const App = ({ getLink, link }) => {
         name="url"
         placeholder="Vimeo or Flickr url"
         title="Create Link"
+        loading={loading}
       />
       { link && link.title }
 
@@ -23,11 +24,13 @@ const App = ({ getLink, link }) => {
 
 App.propTypes = {
   getLink: func,
-  link: object
+  link: object,
+  loading: bool
 };
 
-const mapState = ({ link }) => ({
-  link: link.current
+const mapState = ({ link, loading }) => ({
+  link: link.current,
+  loading: loading.effects.link.getLink
 });
 
 const mapDispatch = ({ link }) => ({

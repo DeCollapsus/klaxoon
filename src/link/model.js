@@ -1,6 +1,4 @@
-import { toast } from "react-toastify";
-
-export const link = (service) => ({
+export const link = (service, toast) => ({
     state: {
         current: null
     },
