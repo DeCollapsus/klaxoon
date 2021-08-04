@@ -1,11 +1,22 @@
 import './App.scss';
+import { connect } from 'react-redux';
 
-function App() {
+import { string } from 'prop-types';
+
+const App = ({ link }) => {
   return (
     <div className="App">
-      Composant App
+      { link }
     </div>
   );
-}
+};
 
-export default App;
+App.propTypes = {
+  link: string
+};
+
+const mapState = ({ link }) => ({
+  link: link.current
+});
+
+export default connect(mapState, null)(App);
