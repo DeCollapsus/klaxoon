@@ -1,22 +1,35 @@
 import './App.scss';
+import { useEffect } from 'react';
 import { connect } from 'react-redux';
 
-import { string } from 'prop-types';
+import { func, object } from 'prop-types';
 
-const App = ({ link }) => {
+const App = ({ getLink, link }) => {
+
+  useEffect(() => {
+    if (!link) getLink();
+  }, [getLink, link])
+
+  if (!link) return null;
+
   return (
     <div className="App">
-      { link }
+      { link.title }
     </div>
   );
 };
 
 App.propTypes = {
-  link: string
+  getLink: func,
+  link: object
 };
 
 const mapState = ({ link }) => ({
   link: link.current
 });
 
-export default connect(mapState, null)(App);
+const mapDispatch = ({ link }) => ({
+  getLink: link.getLink
+});
+
+export default connect(mapState, mapDispatch)(App);
