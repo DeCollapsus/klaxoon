@@ -1,11 +1,35 @@
 import './App.scss';
+import { useEffect } from 'react';
+import { connect } from 'react-redux';
 
-function App() {
+import { func, object } from 'prop-types';
+
+const App = ({ getLink, link }) => {
+
+  useEffect(() => {
+    if (!link) getLink();
+  }, [getLink, link])
+
+  if (!link) return null;
+
   return (
     <div className="App">
-      Composant App
+      { link.title }
     </div>
   );
-}
+};
 
-export default App;
+App.propTypes = {
+  getLink: func,
+  link: object
+};
+
+const mapState = ({ link }) => ({
+  link: link.current
+});
+
+const mapDispatch = ({ link }) => ({
+  getLink: link.getLink
+});
+
+export default connect(mapState, mapDispatch)(App);
