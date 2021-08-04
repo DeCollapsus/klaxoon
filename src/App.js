@@ -1,20 +1,22 @@
 import './App.scss';
-import { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import { func, object } from 'prop-types';
 
+import CreateElementForm from './link/CreateElement.form';
+
 const App = ({ getLink, link }) => {
-
-  useEffect(() => {
-    if (!link) getLink();
-  }, [getLink, link])
-
-  if (!link) return null;
 
   return (
     <div className="App">
-      { link.title }
+      <CreateElementForm
+        onSubmit={getLink}
+        name="url"
+        placeholder="Vimeo or Flickr url"
+        title="Create Link"
+      />
+      { link && link.title }
+
     </div>
   );
 };

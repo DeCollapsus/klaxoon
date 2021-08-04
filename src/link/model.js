@@ -9,8 +9,8 @@ export const link = (service) => ({
         })
     },
     effects: (dispatch) => ({
-        async getLink() {
-            const response = await service.getNoEmbedResponse('https://www.youtube.com/watch?v=UTHLKHL_whs');
+        async getLink({ url }) {
+            const response = await service.getNoEmbedResponse(url);
             dispatch.link.updateCurrent(response);
         }
     })
