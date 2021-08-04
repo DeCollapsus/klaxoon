@@ -26,6 +26,10 @@ class LinkService {
                 throw new Error(json.error);
             }
 
+            if (json.provider_name !== 'Vimeo' && json.provider_name !== 'Flickr') {
+                throw new Error('Wrong provider: only Vimeo or Flickr are accepted');
+            }
+
             return noEmbedMapper(json);
 
         } catch (error) {

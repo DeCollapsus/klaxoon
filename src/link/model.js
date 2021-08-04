@@ -1,4 +1,4 @@
-export const link = (service) => ({
+export const link = (service, toast) => ({
     state: {
         current: null
     },
@@ -10,8 +10,12 @@ export const link = (service) => ({
     },
     effects: (dispatch) => ({
         async getLink({ url }) {
-            const response = await service.getNoEmbedResponse(url);
-            dispatch.link.updateCurrent(response);
+            try {
+                const response = await service.getNoEmbedResponse(url);
+                dispatch.link.updateCurrent(response);
+            } catch (error) {
+                toast.error(error.message);
+            }
         }
     })
 });
