@@ -61,6 +61,15 @@ export const link = (service, toast) => ({
             } catch (error) {
                 toast.error(error.message);
             }
+        },
+        getSingleLink(index) {
+            try {
+                const response = service.getElementFromList(index);
+                dispatch.link.updateCurrent(response);
+            } catch (error) {
+                toast.error(error.message);
+                throw error;
+            }
         }
     })
 });
