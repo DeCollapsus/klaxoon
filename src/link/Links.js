@@ -39,7 +39,7 @@ const Links = ({
                 title="Create Link"
                 loading={loading.addToList}
             />
-            <button disabled={loading.populate} onClick={populate}>Populate!</button>
+            <button className="secondary" disabled={loading.populate} onClick={populate}>Populate!</button>
             <table>
             <thead>
                 <tr>

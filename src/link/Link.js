@@ -14,8 +14,8 @@ const Link = ({ index, link, pageIndex, removeElement }) => {
             <td>{ link.height }</td>
             <td>{ link.duration }</td>
             <td>
-                <button onClick={() => removeElement(link.url)}>Delete</button>
-                <Route to={`updateLink/${pageIndex * 5 + index}`}><button>Go to edit</button></Route>
+                <button className="danger" onClick={() => removeElement(link.url)}>Delete</button>
+                <Route to={`updateLink/${pageIndex * 5 + index}`}><button className="primary">Go to edit</button></Route>
             </td>
         </tr>
     );
