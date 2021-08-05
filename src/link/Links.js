@@ -4,6 +4,7 @@ import { array, func, object } from 'prop-types';
 import { connect } from 'react-redux';
 
 import CreateElementForm from './CreateElement.form';
+import Link from './Link';
 
 const Links = ({ addToList, getList, links, loading }) => {
 
@@ -11,7 +12,10 @@ const Links = ({ addToList, getList, links, loading }) => {
         getList();
     }, [getList]);
 
-    const list = (data) => data.map((el) => <div key={el.url}>{ el.title }</div>)
+    const list = (data) => data.map((el) => (<Link
+        key={el.url}
+        link={el}
+    />));
 
     return (
         <div>
@@ -22,7 +26,23 @@ const Links = ({ addToList, getList, links, loading }) => {
                 title="Create Link"
                 loading={loading.addToList}
             />
-            { list(links) }
+            <table>
+            <thead>
+                <tr>
+                    <th>URL</th>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Upload Date</th>
+                    <th>Width</th>
+                    <th>Height</th>
+                    <th>Duration (s)</th>
+                </tr>
+                </thead>
+                <tbody>
+                    { list(links) }
+                    { links.length === 0 && <tr><td colSpan={8}>No link available</td></tr> }
+                </tbody>  
+            </table>
         </div>
     )
 };
