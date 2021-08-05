@@ -14,7 +14,6 @@ const UpdateLinkForm = ({ getLink, link }) => {
         (async () => {
           try {
             await getLink(id);
-            if (!link) history.push('/');
           } catch (err) {
             history.push("/");
           }
