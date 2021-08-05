@@ -7,7 +7,8 @@ type Link = {
     uploadDate: string,
     height: number,
     width: number,
-    duration: number
+    duration: number,
+    tags: string[]
 };
 
 class LinkService {
@@ -103,6 +104,39 @@ class LinkService {
             try {
                 return this.list[index];
             } catch(error) {
+                throw error;
+            }
+        }
+
+        /**
+         * 
+         * @param {number} index l'index du lien à modifier
+         * @param {string} tag le tag à ajouter au lien correspondant
+         * @returns {Link} le lien correspondant modifié
+         */
+        addTagToLink(index: number, tag: string): Link {
+            try {
+                if (this.list[index].tags.find((el) => el.toLowerCase() === tag.toLowerCase())) throw new Error('This tag already exists.');
+                
+                this.list[index].tags.push(tag);
+                
+                return this.list[index];
+            } catch (error) {
+                throw error;
+            }
+        }
+
+        /**
+         * 
+         * @param {number} indexLink l'index du lien à modifier
+         * @param {string} tag le tag à retirer
+         * @returns le lien correspondant modifié
+         */
+        removeTagFromLink(indexLink: number, tag: string): Link {
+            try {
+                this.list[indexLink].tags = this.list[indexLink].tags.filter((el) => el !== tag);
+                return this.list[indexLink];
+            } catch (error) {
                 throw error;
             }
         }
