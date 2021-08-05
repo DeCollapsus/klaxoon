@@ -22,9 +22,9 @@ const UpdateLinkForm = ({ addTag, getLink, link, loading, removeTag }) => {
         })();
       }, [getLink, id, history]);
 
-    if (!link) return (<Link to="/"><button>Go back</button></Link>);
+    if (!link) return (<Link to="/"><button className="primary">Go back</button></Link>);
 
-    const tagList = link.tags.map((el) => (<div key={el} onClick={() => removeTag({index: id, tag: el})}>{ el }</div>));
+    const tagList = link.tags.map((el) => (<div className="tag" key={el} onClick={() => removeTag({index: id, tag: el})}>{ el }</div>));
 
     return (
         <>
