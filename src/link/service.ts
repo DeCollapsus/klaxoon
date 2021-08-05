@@ -1,4 +1,4 @@
-import { noEmbedMapper } from './utils';
+import { data, noEmbedMapper } from './utils';
 
 type Link = {
     url: string,
@@ -11,32 +11,32 @@ type Link = {
 };
 
 class LinkService {
-    private list: Link[] = [];
+        private list: Link[] = [];
 
-    /**
-     * 
-     * @param {number} url le lien à ajouter à la liste
-     * @returns {Link} les metadatas du lien correspondant
-     */
-    private async getNoEmbedResponse(url: string): Promise<Link> {
-        try {
-            const response = await fetch(`https://noembed.com/embed?url=${url}`);
-            const json = await response.json();
+        /**
+         * 
+         * @param {number} url le lien à ajouter à la liste
+         * @returns {Link} les metadatas du lien correspondant
+         */
+        private async getNoEmbedResponse(url: string): Promise<Link> {
+            try {
+                const response = await fetch(`https://noembed.com/embed?url=${url}`);
+                const json = await response.json();
 
-            if (json.error) {
-                throw new Error(json.error);
+                if (json.error) {
+                    throw new Error(json.error);
+                }
+
+                if (json.provider_name !== 'Vimeo' && json.provider_name !== 'Flickr') {
+                    throw new Error('Wrong provider: only Vimeo or Flickr are accepted');
+                }
+
+                return noEmbedMapper(json);
+
+            } catch (error) {
+                throw error;
             }
-
-            if (json.provider_name !== 'Vimeo' && json.provider_name !== 'Flickr') {
-                throw new Error('Wrong provider: only Vimeo or Flickr are accepted');
-            }
-
-            return noEmbedMapper(json);
-
-        } catch (error) {
-            throw error;
         }
-    }
 
         /**
          * ajoute le lien à la liste de liens
@@ -78,6 +78,17 @@ class LinkService {
         removeElementFromList(url: string): void {
             try {
                 this.list = this.list.filter((el) => el.url !== url);
+            } catch (error) {
+                throw error;
+            }
+        }
+
+        /**
+         * remplit la liste avec les données disponibles du fichier utils
+         */
+        async populate() {
+            try {
+                await Promise.allSettled(data.map((el) => this.addElementToList(el)));
             } catch (error) {
                 throw error;
             }

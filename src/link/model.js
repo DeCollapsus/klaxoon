@@ -53,6 +53,14 @@ export const link = (service, toast) => ({
             } catch (error) {
                 toast.error(error.message);
             }            
+        },
+        async populate() {
+            try {
+                await service.populate();
+                dispatch.link.getList();
+            } catch (error) {
+                toast.error(error.message);
+            }
         }
     })
 });

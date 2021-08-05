@@ -14,6 +14,7 @@ const Links = ({
     links,
     loading,
     pageIndex,
+    populate,
     removeElement
 }) => {
 
@@ -21,10 +22,12 @@ const Links = ({
         getList();
     }, [getList]);
 
-    const list = (data) => data.map((el) => (<Link
+    const list = (data) => data.map((el, index) => (<Link
         key={el.url}
         link={el}
         removeElement={removeElement}
+        index={index}
+        pageIndex={pageIndex}
     />));
 
     return (
@@ -36,6 +39,7 @@ const Links = ({
                 title="Create Link"
                 loading={loading.addToList}
             />
+            <button disabled={loading.populate} onClick={populate}>Populate!</button>
             <table>
             <thead>
                 <tr>
@@ -71,6 +75,7 @@ Links.propTypes = {
     links: array,
     loading: object,
     pageIndex: number,
+    populate: func,
     removeElement: func
 };
 
@@ -85,6 +90,7 @@ const mapDispatch = ({ link }) => ({
     addToList: link.addToList,
     getList: link.getList,
     goToPage: link.goToPage,
+    populate: link.populate,
     removeElement: link.removeFromList
 });
 

@@ -59,5 +59,26 @@ describe('Links', () => {
             expect(queryByText('Sleepy meadow')).not.toBeInTheDocument();
         });
     });
+
+    it('should populate the table', async () => {
+        const { getByText, getByTestId } = renderWithRematchStore(<Links />, store);
+
+        act(() => {
+            fireEvent.click(getByText('Populate!'));
+        });
+        await waitFor(() => {
+            expect(getByTestId('row-0')).toBeInTheDocument();
+        });
+    });
+
+    it('should go to the next page', async () => {
+        const { getByText, getByTestId } = renderWithRematchStore(<Links />, store);
+        act(() => {
+            fireEvent.click(getByText('>'));
+        });
+        await waitFor(() => {
+            expect(getByTestId('row-5')).toBeInTheDocument();
+        });
+    });
 });
 

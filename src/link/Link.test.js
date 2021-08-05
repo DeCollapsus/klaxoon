@@ -8,7 +8,11 @@ describe('Link', () => {
         const { getByText } = render(
             <table>
                 <tbody>
-                    <Link link={{ url: 'test url' }} />
+                    <Link
+                        link={{ url: 'test url' }}
+                        index={0}
+                        pageIndex={0}
+                    />
                 </tbody>
             </table>);
 
@@ -20,7 +24,12 @@ describe('Link', () => {
         const { getByText } = render(
             <table>
                 <tbody>
-                    <Link link={{ url: 'test url' }} removeElement={removeElement} />
+                    <Link
+                        link={{ url: 'test url' }}
+                        removeElement={removeElement}
+                        index={0}
+                        pageIndex={0}
+                    />
                 </tbody>
             </table>);
 

@@ -1,10 +1,10 @@
-import { func, object } from 'prop-types';
+import { func, number, object } from 'prop-types';
 
-const Link = ({ link, removeElement }) => {
+const Link = ({ index, link, pageIndex, removeElement }) => {
     if (!link) return null;
 
     return (
-        <tr>
+        <tr data-testid={`row-${pageIndex * 5 + index}`}>
             <td>{ link.url }</td>
             <td>{ link.title }</td>
             <td>{ link.author }</td>
@@ -20,8 +20,10 @@ const Link = ({ link, removeElement }) => {
 };
 
 Link.propTypes = {
-    removeElement: func,
-    link: object
+    index: number,
+    link: object,
+    pageIndex: number,
+    removeElement: func
 };
 
 export default Link;
