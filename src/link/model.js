@@ -8,7 +8,10 @@ export const link = (service, toast) => ({
     reducers: {
         updateCurrent: (state, current) => ({
             ...state,
-            current
+            current: {
+                ...current,
+                tags: [...current.tags]
+            }
         }),
         updateList: (state, list) => ({
             ...state,
@@ -69,6 +72,22 @@ export const link = (service, toast) => ({
             } catch (error) {
                 toast.error(error.message);
                 throw error;
+            }
+        },
+        addTagToLink: (index) => ({ tag }) => {
+            try {
+                const response = service.addTagToLink(index, tag);
+                dispatch.link.updateCurrent(response);
+            } catch (error) {
+                toast.error(error.message);
+            }
+        },
+        removeTagFromLink({ index, tag }) {
+            try {
+                const response = service.removeTagFromLink(index, tag);
+                dispatch.link.updateCurrent(response);
+            } catch (error) {
+                toast.error(error.message);
             }
         }
     })
