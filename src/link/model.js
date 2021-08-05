@@ -1,21 +1,34 @@
 export const link = (service, toast) => ({
     state: {
-        current: null
+        current: null,
+        list: []
     },
     reducers: {
         updateCurrent: (state, current) => ({
             ...state,
             current
+        }),
+        updateList: (state, list) => ({
+            ...state,
+            list
         })
     },
     effects: (dispatch) => ({
-        async getLink({ url }) {
+        async addToList({ url }) {
             try {
-                const response = await service.getNoEmbedResponse(url);
-                dispatch.link.updateCurrent(response);
+                await service.addElementToList(url);
+                dispatch.link.getList();
             } catch (error) {
                 toast.error(error.message);
             }
-        }
+        },
+        getList() {
+            try {
+                const response = service.getList(link.pageIndex);
+                dispatch.link.updateList(response);
+            } catch (error) {
+                toast.error(error.message);
+            }
+        },
     })
 });

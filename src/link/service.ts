@@ -11,13 +11,14 @@ type Link = {
 };
 
 class LinkService {
+    private list: Link[] = [];
 
     /**
      * 
      * @param {number} url le lien à ajouter à la liste
      * @returns {Link} les metadatas du lien correspondant
      */
-    async getNoEmbedResponse(url: string): Promise<Link> {
+    private async getNoEmbedResponse(url: string): Promise<Link> {
         try {
             const response = await fetch(`https://noembed.com/embed?url=${url}`);
             const json = await response.json();
@@ -36,6 +37,29 @@ class LinkService {
             throw error;
         }
     }
+
+        /**
+         * ajoute le lien à la liste de liens
+         * @param {string} url le lien à ajouter
+         */
+        public async addElementToList(url: string) {
+            try {
+                if (this.list.find((el) => el.url === url)) throw new Error('This link already exists.');
+    
+                const newEl = await this.getNoEmbedResponse(url);
+    
+                this.list = [...this.list, newEl];
+            } catch (error) {
+                throw error;
+            }
+        }
+
+        /**
+         * @returns {Link[]} la liste de liens
+         */
+        public getList(): Array<Link> {
+            return this.list;
+        }
 };
 
 export default LinkService;
