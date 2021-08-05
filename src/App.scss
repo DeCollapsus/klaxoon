@@ -1,3 +1,10 @@
+$primary: #21c4d4;
+$secondary: #44d9e7;
+$white: #fff;
+$gray: #9b9b9b;
+$red: #d33131;
+$darkred: #b61919;
+
 .App {
   text-align: center;
 }
@@ -35,4 +42,99 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+button {
+	color: #fff !important;
+	text-transform: uppercase;
+	text-decoration: none;
+	padding: 10px;
+	border-radius: 5px;
+	display: inline-block;
+	border: none;
+	transition: all 0.4s ease 0s;
+  margin: 5px;
+  cursor: pointer;
+
+  &.primary {
+    background-color: $primary;
+    &:hover {
+      background-color: #2facb8;
+    }
+  }
+
+  &.secondary {
+    background-color: $secondary;
+    &:hover {
+      background-color: #2facb8;
+    }
+  }
+
+  &.danger {
+    background-color: $red;
+    &:hover {
+      background-color: $darkred;
+    }
+  }
+
+  &:disabled {
+    background-color: $gray;
+  }
+}
+
+table {
+  border: solid 1px $gray;
+  border-collapse: collapse;
+  border-spacing: 0;
+  font: normal 13px Arial, sans-serif;
+  margin-left: auto;
+  margin-right: auto;
+}
+table thead th {
+  background-color: $primary;
+  border: solid 1px $gray;
+  color: $white;
+  padding: 10px;
+  text-align: left;
+}
+table tbody td {
+  border: solid 1px $gray;
+  color: #333;
+  padding: 10px;
+  text-shadow: 1px 1px 1px #fff;
+}
+
+.tag {
+  color: #fff !important;
+  background-color: $red;
+	text-transform: uppercase;
+	text-decoration: none;
+	padding: 5px;
+	border-radius: 5px;
+	display: inline-block;
+	border: none;
+	transition: all 0.4s ease 0s;
+  margin: 5px;
+  cursor: pointer;
+
+  &::after {
+    content: ' x';
+  }
+
+  &:hover {
+    background-color: $darkred;
+  }
+}
+
+.form__field {
+  font-family: inherit;
+  width: 200px;
+  border: 0;
+  border-bottom: 2px solid $gray;
+  outline: 0;
+  font-size: 1rem;
+  color: $gray;
+  padding: 7px;
+  background: transparent;
+  transition: border-color 0.2s;
 }
