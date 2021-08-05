@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import CreateElementForm from './CreateElement.form';
 import Link from './Link';
 
-const Links = ({ addToList, getList, links, loading }) => {
+const Links = ({ addToList, getList, links, loading, removeElement }) => {
 
     useEffect(() => {
         getList();
@@ -15,6 +15,7 @@ const Links = ({ addToList, getList, links, loading }) => {
     const list = (data) => data.map((el) => (<Link
         key={el.url}
         link={el}
+        removeElement={removeElement}
     />));
 
     return (
@@ -36,6 +37,7 @@ const Links = ({ addToList, getList, links, loading }) => {
                     <th>Width</th>
                     <th>Height</th>
                     <th>Duration (s)</th>
+                    <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -51,7 +53,8 @@ Links.propTypes = {
     addToList: func,
     getList: func,
     links: array,
-    loading: object
+    loading: object,
+    removeElement: func
 };
 
 const mapState = ({ link, loading }) => ({
@@ -61,7 +64,8 @@ const mapState = ({ link, loading }) => ({
 
 const mapDispatch = ({ link }) => ({
     addToList: link.addToList,
-    getList: link.getList
+    getList: link.getList,
+    removeElement: link.removeFromList
 });
 
 export default connect(mapState, mapDispatch)(Links);

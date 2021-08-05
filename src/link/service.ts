@@ -60,6 +60,18 @@ class LinkService {
         public getList(): Array<Link> {
             return this.list;
         }
+
+    /**
+     * retire un lien de la liste
+     * @param url l'url du lien à retirer
+     */
+     removeElementFromList(url: string): void {
+        try {
+            this.list = this.list.filter((el) => el.url !== url);
+        } catch (error) {
+            throw error;
+        }
+    }
 };
 
 export default LinkService;

@@ -1,6 +1,6 @@
-import { object } from 'prop-types';
+import { func, object } from 'prop-types';
 
-const Link = ({ link }) => {
+const Link = ({ link, removeElement }) => {
     if (!link) return null;
 
     return (
@@ -12,11 +12,15 @@ const Link = ({ link }) => {
             <td>{ link.width }</td>
             <td>{ link.height }</td>
             <td>{ link.duration }</td>
+            <td>
+                <button onClick={() => removeElement(link.url)}>Delete</button>
+            </td>
         </tr>
     );
 };
 
 Link.propTypes = {
+    removeElement: func,
     link: object
 };
 

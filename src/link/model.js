@@ -30,5 +30,13 @@ export const link = (service, toast) => ({
                 toast.error(error.message);
             }
         },
+        removeFromList(url) {
+            try {
+                service.removeElementFromList(url);
+                dispatch.link.getList();
+            } catch (error) {
+                toast.error(error.message);
+            }
+        }
     })
 });
