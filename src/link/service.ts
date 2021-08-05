@@ -55,23 +55,33 @@ class LinkService {
         }
 
         /**
-         * @returns {Link[]} la liste de liens
+         * 
+         * @param {number} pageIndex la page à retourner (commencd à 0)
+         * @returns {{ list: Array<Link>, count: number }} le tableau des liens de la page fournie en paramètre,
+         * et le nombre total de liens disponibles
          */
-        public getList(): Array<Link> {
-            return this.list;
+        getPageFromList(pageIndex: number): { list: Link[], count: number } {
+            try {
+                return { 
+                    list: this.list.slice(pageIndex * 5, pageIndex * 5 + 5),
+                    count: this.list.length
+                };
+            } catch(error) {
+                throw error;
+            }
         }
 
-    /**
-     * retire un lien de la liste
-     * @param url l'url du lien à retirer
-     */
-     removeElementFromList(url: string): void {
-        try {
-            this.list = this.list.filter((el) => el.url !== url);
-        } catch (error) {
-            throw error;
+        /**
+         * retire un lien de la liste
+         * @param url l'url du lien à retirer
+         */
+        removeElementFromList(url: string): void {
+            try {
+                this.list = this.list.filter((el) => el.url !== url);
+            } catch (error) {
+                throw error;
+            }
         }
-    }
 };
 
 export default LinkService;

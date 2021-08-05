@@ -1,7 +1,9 @@
 export const link = (service, toast) => ({
     state: {
         current: null,
-        list: []
+        list: [],
+        pageIndex: 0,
+        count: 0
     },
     reducers: {
         updateCurrent: (state, current) => ({
@@ -11,6 +13,10 @@ export const link = (service, toast) => ({
         updateList: (state, list) => ({
             ...state,
             list
+        }),
+        updatePage: (state, payload) => ({
+            ...state,
+            ...payload
         })
     },
     effects: (dispatch) => ({
@@ -22,10 +28,11 @@ export const link = (service, toast) => ({
                 toast.error(error.message);
             }
         },
-        getList() {
+        getList(_, { link }) {
             try {
-                const response = service.getList(link.pageIndex);
-                dispatch.link.updateList(response);
+                const { list, count } = service.getPageFromList(link.pageIndex);
+                dispatch.link.updatePage({ count });
+                dispatch.link.updateList(list);
             } catch (error) {
                 toast.error(error.message);
             }
@@ -37,6 +44,15 @@ export const link = (service, toast) => ({
             } catch (error) {
                 toast.error(error.message);
             }
+        },
+        goToPage(pageIndex) {
+            try {
+                const { count, list } = service.getPageFromList(pageIndex);
+                dispatch.link.updatePage({ pageIndex, count });
+                dispatch.link.updateList(list);
+            } catch (error) {
+                toast.error(error.message);
+            }            
         }
     })
 });

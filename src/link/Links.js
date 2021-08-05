@@ -1,12 +1,21 @@
 import { useEffect } from 'react';
-import { array, func, object } from 'prop-types';
+import { array, func, number, object } from 'prop-types';
 
 import { connect } from 'react-redux';
 
 import CreateElementForm from './CreateElement.form';
 import Link from './Link';
 
-const Links = ({ addToList, getList, links, loading, removeElement }) => {
+const Links = ({
+    addToList,
+    count,
+    getList,
+    goToPage,
+    links,
+    loading,
+    pageIndex,
+    removeElement
+}) => {
 
     useEffect(() => {
         getList();
@@ -45,26 +54,37 @@ const Links = ({ addToList, getList, links, loading, removeElement }) => {
                     { links.length === 0 && <tr><td colSpan={8}>No link available</td></tr> }
                 </tbody>  
             </table>
+            { count > 5 && <div>
+                {pageIndex !== 0 && <button className="primary" onClick={() => goToPage(pageIndex - 1)}>{'<'}</button>}{' '}
+                <span>Showing page {pageIndex + 1} of {Math.ceil(count / 5)}</span>{' '}
+                {pageIndex + 1 < Math.ceil(count / 5) && <button className="primary" onClick={() => goToPage(pageIndex + 1)}>{ '>' }</button>}
+            </div> }
         </div>
     )
 };
 
 Links.propTypes = {
     addToList: func,
+    count: number,
     getList: func,
+    goToPage: func,
     links: array,
     loading: object,
+    pageIndex: number,
     removeElement: func
 };
 
 const mapState = ({ link, loading }) => ({
+    count: link.count,
     links: link.list,
-    loading: loading.effects.link
+    loading: loading.effects.link,
+    pageIndex: link.pageIndex
 });
 
 const mapDispatch = ({ link }) => ({
     addToList: link.addToList,
     getList: link.getList,
+    goToPage: link.goToPage,
     removeElement: link.removeFromList
 });
 
