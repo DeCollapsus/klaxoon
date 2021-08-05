@@ -1,4 +1,5 @@
 import { func, number, object } from 'prop-types';
+import { Link as Route } from 'react-router-dom';
 
 const Link = ({ index, link, pageIndex, removeElement }) => {
     if (!link) return null;
@@ -14,6 +15,7 @@ const Link = ({ index, link, pageIndex, removeElement }) => {
             <td>{ link.duration }</td>
             <td>
                 <button onClick={() => removeElement(link.url)}>Delete</button>
+                <Route to={`updateLink/${pageIndex * 5 + index}`}><button>Go to edit</button></Route>
             </td>
         </tr>
     );

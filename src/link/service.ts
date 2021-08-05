@@ -93,6 +93,19 @@ class LinkService {
                 throw error;
             }
         }
+
+        /**
+         * 
+         * @param {number} index 
+         * @returns {Link} le lien disponible à l'index donné en paramètre
+         */
+        getElementFromList(index: number): Link {
+            try {
+                return this.list[index];
+            } catch(error) {
+                throw error;
+            }
+        }
 };
 
 export default LinkService;
