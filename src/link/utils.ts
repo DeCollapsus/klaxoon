@@ -1,6 +1,6 @@
 import { prop } from "ramda";
 
-export const noEmbedMapper = (obj) => ({
+export const noEmbedMapper = (obj: any) => ({
     url: prop('url', obj),
     title: prop('title', obj),
     author: prop('author_name', obj),

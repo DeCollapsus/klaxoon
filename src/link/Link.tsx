@@ -1,7 +1,15 @@
-import { func, number, object } from 'prop-types';
+import { FunctionComponent } from 'react';
 import { Link as Route } from 'react-router-dom';
+import { Link as LinkType } from './service';
 
-const Link = ({ index, link, pageIndex, removeElement }) => {
+interface ILinkProps {
+    index: number,
+    link: LinkType,
+    pageIndex: number,
+    removeElement: (url: string) => {}
+};
+
+const Link: FunctionComponent<ILinkProps> = ({ index, link, pageIndex, removeElement }) => {
     if (!link) return null;
 
     return (
@@ -19,13 +27,6 @@ const Link = ({ index, link, pageIndex, removeElement }) => {
             </td>
         </tr>
     );
-};
-
-Link.propTypes = {
-    index: number,
-    link: object,
-    pageIndex: number,
-    removeElement: func
 };
 
 export default Link;
