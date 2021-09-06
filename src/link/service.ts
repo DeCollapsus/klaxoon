@@ -1,6 +1,6 @@
 import { data, noEmbedMapper } from './utils';
 
-type Link = {
+export type Link = {
     url: string,
     title: string,
     author: string,

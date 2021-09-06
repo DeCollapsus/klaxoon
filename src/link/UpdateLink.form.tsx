@@ -1,15 +1,23 @@
-import { useEffect } from 'react';
+import { FunctionComponent, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
-
-import { bool, func, object } from 'prop-types';
 
 import { Link } from 'react-router-dom';
 
 import CreateElementForm from './CreateElement.form';
 
-const UpdateLinkForm = ({ addTag, getLink, link, loading, removeTag }) => {
-    const { id } = useParams();
+import { Link as LinkType } from './service';
+
+interface IUpdateLinkFormProps {
+  addTag: (id: string) => (tag: string) => {},
+  getLink: (id: string) => {},
+  link: LinkType,
+  loading: boolean,
+  removeTag: (payload: {index: string, tag: string}) => {}
+};
+
+const UpdateLinkForm: FunctionComponent<IUpdateLinkFormProps> = ({ addTag, getLink, link, loading, removeTag }) => {
+    const { id } = useParams<{ id: string }>();
     const history = useHistory();
 
     useEffect(() => {
@@ -43,20 +51,13 @@ const UpdateLinkForm = ({ addTag, getLink, link, loading, removeTag }) => {
     );
 };
 
-UpdateLinkForm.propTypes = {
-    addTag: func,
-    getLink: func,
-    link: object,
-    loading: bool,
-    removeTag: func
-};
 
-const mapState = ({ link, loading }) => ({
+const mapState = ({ link, loading }: any) => ({
     link: link.current,
     loading: loading.effects.link.addTag
 });
 
-const mapDispatch = ({ link }) => ({
+const mapDispatch = ({ link }: any) => ({
     addTag: link.addTagToLink,
     getLink: link.getSingleLink,
     removeTag: link.removeTagFromLink
