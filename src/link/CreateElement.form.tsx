@@ -1,8 +1,16 @@
-import { bool, func, string } from 'prop-types';
+import { FunctionComponent } from 'react';
 
 import { useForm } from 'react-hook-form';
 
-const CreateElementForm = ({ loading, name, onSubmit, placeholder, title }) => {
+interface ICreateElementFormProps {
+    loading: boolean,
+    name: string,
+    onSubmit: (element: any) => {},
+    placeholder: string,
+    title: string
+};
+
+const CreateElementForm: FunctionComponent<ICreateElementFormProps> = ({ loading, name, onSubmit, placeholder, title }) => {
     const { handleSubmit, register, formState: { errors } } = useForm();
 
     return (
@@ -14,12 +22,5 @@ const CreateElementForm = ({ loading, name, onSubmit, placeholder, title }) => {
     );
 }
 
-CreateElementForm.propTypes = {
-    loading: bool,
-    name: string,
-    onSubmit: func,
-    placeholder: string,
-    title: string
-};
 
 export default CreateElementForm;

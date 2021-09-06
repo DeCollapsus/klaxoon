@@ -1,12 +1,28 @@
-import { useEffect } from 'react';
-import { array, func, number, object } from 'prop-types';
+import { FunctionComponent, useEffect } from 'react';
 
 import { connect } from 'react-redux';
 
 import CreateElementForm from './CreateElement.form';
 import Link from './Link';
 
-const Links = ({
+import { Link as LinkType } from './service';
+
+interface ILinksProps {
+    addToList: () => {},
+    count: number,
+    getList: () => void,
+    goToPage: (page: number) => void,
+    links: Array<LinkType>,
+    loading: {
+        addToList: boolean,
+        populate: boolean
+    },
+    pageIndex: number,
+    populate: () => void,
+    removeElement: (url: string)  => {}
+};
+
+const Links: FunctionComponent<ILinksProps> = ({
     addToList,
     count,
     getList,
@@ -22,7 +38,7 @@ const Links = ({
         getList();
     }, [getList]);
 
-    const list = (data) => data.map((el, index) => (<Link
+    const list = (data: Array<LinkType>) => data.map((el: LinkType, index: number) => (<Link
         key={el.url}
         link={el}
         removeElement={removeElement}
@@ -67,26 +83,14 @@ const Links = ({
     )
 };
 
-Links.propTypes = {
-    addToList: func,
-    count: number,
-    getList: func,
-    goToPage: func,
-    links: array,
-    loading: object,
-    pageIndex: number,
-    populate: func,
-    removeElement: func
-};
-
-const mapState = ({ link, loading }) => ({
+const mapState = ({ link, loading }: any) => ({
     count: link.count,
     links: link.list,
     loading: loading.effects.link,
     pageIndex: link.pageIndex
 });
 
-const mapDispatch = ({ link }) => ({
+const mapDispatch = ({ link }: any) => ({
     addToList: link.addToList,
     getList: link.getList,
     goToPage: link.goToPage,
