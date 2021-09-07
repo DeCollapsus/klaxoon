@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import { link } from './link/model';
 import LinkService from './link/service';
 
+
 const store = init(
     {
         models: {

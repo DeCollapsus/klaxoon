@@ -1,6 +1,7 @@
 import { FunctionComponent, useEffect } from 'react';
 
 import { connect } from 'react-redux';
+import { RootState, Dispatch } from './model';
 
 import CreateElementForm from './CreateElement.form';
 import Link from './Link';
@@ -8,21 +9,16 @@ import Link from './Link';
 import { Link as LinkType } from './service';
 
 interface ILinksProps {
-    addToList: () => {},
     count: number,
-    getList: () => void,
-    goToPage: (page: number) => void,
     links: Array<LinkType>,
     loading: {
         addToList: boolean,
         populate: boolean
     },
-    pageIndex: number,
-    populate: () => void,
-    removeElement: (url: string)  => {}
+    pageIndex: number
 };
 
-const Links: FunctionComponent<ILinksProps> = ({
+const Links: FunctionComponent<ILinksProps & Props> = ({
     addToList,
     count,
     getList,
@@ -83,19 +79,23 @@ const Links: FunctionComponent<ILinksProps> = ({
     )
 };
 
-const mapState = ({ link, loading }: any) => ({
+const mapState = ({ link, loading }: RootState) => ({
     count: link.count,
     links: link.list,
     loading: loading.effects.link,
     pageIndex: link.pageIndex
 });
 
-const mapDispatch = ({ link }: any) => ({
+const mapDispatch = ({ link }: Dispatch) => ({
     addToList: link.addToList,
     getList: link.getList,
     goToPage: link.goToPage,
     populate: link.populate,
     removeElement: link.removeFromList
 });
+
+type StateProps = ReturnType<typeof mapState>
+type DispatchProps = ReturnType<typeof mapDispatch>
+type Props = StateProps & DispatchProps
 
 export default connect(mapState, mapDispatch)(Links);
