@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 interface ICreateElementFormProps {
     loading: boolean,
     name: string,
-    onSubmit: (element: any) => {},
+    onSubmit: (element: any) => void,
     placeholder: string,
     title: string
 };

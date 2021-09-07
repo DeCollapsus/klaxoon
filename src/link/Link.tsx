@@ -6,7 +6,7 @@ interface ILinkProps {
     index: number,
     link: LinkType,
     pageIndex: number,
-    removeElement: (url: string) => {}
+    removeElement: (url: string) => void
 };
 
 const Link: FunctionComponent<ILinkProps> = ({ index, link, pageIndex, removeElement }) => {
